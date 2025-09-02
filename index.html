@@ -15,7 +15,7 @@
             <div class="genre-selection">
                 <h2>Choose Your Adventure Genre:</h2>
                 <div class="genre-buttons">
-                    <button class="genre-btn" data-genre="Adventure">🗡️ Adventure</button>
+                    <button class="genre-btn" data-genre="Adventure">🛡️ Adventure</button>
                     <button class="genre-btn" data-genre="Horror">👻 Horror</button>
                     <button class="genre-btn" data-genre="Sci-Fi">🚀 Sci-Fi</button>
                 </div>
@@ -34,12 +34,43 @@
                 <div class="genre-indicator">
                     <span id="currentGenre"></span>
                 </div>
+
+                <!-- Voice-over controls -->
+                <div class="voice-controls" aria-label="Voice Over Controls">
+                    <label class="toggle">
+                        <input type="checkbox" id="voiceToggle">
+                        <span>Voice Over</span>
+                    </label>
+                    <div class="voice-row">
+                        <label for="voiceSelect">Voice:</label>
+                        <select id="voiceSelect" aria-label="Select Voice"></select>
+                    </div>
+                    <div class="voice-row">
+                        <label for="voiceRate">Rate:</label>
+                        <input id="voiceRate" type="range" min="0.6" max="1.6" step="0.1" value="1">
+                        <span id="voiceRateVal">1.0</span>
+                    </div>
+                    <div class="voice-row">
+                        <label for="voicePitch">Pitch:</label>
+                        <input id="voicePitch" type="range" min="0.6" max="1.6" step="0.1" value="1">
+                        <span id="voicePitchVal">1.0</span>
+                    </div>
+                    <div class="voice-buttons">
+                        <button id="playVoice" class="vbtn">▶️ Play</button>
+                        <button id="pauseVoice" class="vbtn">⏸️ Pause</button>
+                        <button id="resumeVoice" class="vbtn">⏯️ Resume</button>
+                        <button id="stopVoice" class="vbtn">⏹️ Stop</button>
+                    </div>
+                </div>
+
                 <div class="story-text-container">
                     <p id="storyText"></p>
                 </div>
-                <div id="choicesContainer" class="choices-container">
+
+                <div id="choicesContainer" class="choices-container" aria-live="polite">
                     <!-- Choices will be dynamically inserted here -->
                 </div>
+
                 <button id="restartButton" class="restart-btn">🔄 Restart Adventure</button>
             </div>
         </div>
