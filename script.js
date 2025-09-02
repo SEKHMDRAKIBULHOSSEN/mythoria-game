@@ -1,162 +1,214 @@
-// Game Data Structure
-const gameData = {
-    currentGenre: '',
-    currentNode: 'start',
-    
-    // Story nodes with different content based on genre
-    storyNodes: {
-        start: {
-            text: {
-                Adventure: "You wake up in a mysterious enchanted forest. Ancient runes glow on nearby trees, and two paths diverge ahead of you.",
-                Horror: "You awaken in a fog-shrouded cemetery at midnight. Ghostly whispers echo through the mist as two paths stretch into darkness.",
-                'Sci-Fi': "You regain consciousness on an alien planet's surface. Strange crystalline formations pulse with energy, and two corridors lead deeper into the structure."
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?forest,fantasy,path",
-                Horror: "https://source.unsplash.com/1600x900/?cemetery,fog,dark",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?alien,planet,crystal"
-            },
-            choices: [
-                { label: "Take the left path", next: "leftPath" },
-                { label: "Take the right path", next: "rightPath" }
-            ]
-        },
-        
-        leftPath: {
-            text: {
-                Adventure: "A magnificent castle appears through the trees, its towers reaching toward the clouds. Guards patrol the walls.",
-                Horror: "A decrepit mansion looms before you, its windows like hollow eyes. Strange lights flicker within its walls.",
-                'Sci-Fi': "You discover a massive space station docking bay. Alien ships of unknown design rest in the metallic chambers."
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?castle,fantasy,medieval",
-                Horror: "https://source.unsplash.com/1600x900/?mansion,haunted,gothic",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?space,station,futuristic"
-            },
-            choices: [
-                { label: "Approach boldly", next: "approach" },
-                { label: "Sneak around", next: "sneak" }
-            ]
-        },
-        
-        rightPath: {
-            text: {
-                Adventure: "You reach a rushing river with a rickety bridge swaying in the wind. On the far side, you see a glowing treasure.",
-                Horror: "A blood-red river blocks your path. The water seems to whisper your name as shadowy figures move beneath the surface.",
-                'Sci-Fi': "An energy barrier hums before you, beyond which lies a control room with blinking consoles and holographic displays."
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?bridge,river,treasure",
-                Horror: "https://source.unsplash.com/1600x900/?red,water,shadows",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?control,room,hologram"
-            },
-            choices: [
-                { label: "Cross carefully", next: "cross" },
-                { label: "Find another way", next: "alternative" }
-            ]
-        },
-        
-        approach: {
-            text: {
-                Adventure: "The guards welcome you as a prophesied hero! They escort you to the throne room where the king awaits with a quest.",
-                Horror: "The door creaks open on its own. Inside, portraits watch you with moving eyes as you're drawn deeper into the mansion's heart.",
-                'Sci-Fi': "An AI hologram materializes: 'Welcome, traveler. We have been expecting you. The fate of the galaxy hangs in the balance.'"
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?throne,room,king",
-                Horror: "https://source.unsplash.com/1600x900/?portrait,eyes,watching",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?ai,hologram,futuristic"
-            },
-            choices: [
-                { label: "Accept the quest/challenge", next: "victory" },
-                { label: "Decline politely", next: "gameOver" }
-            ]
-        },
-        
-        sneak: {
-            text: {
-                Adventure: "You discover a secret passage! Inside, you find ancient artifacts and a map to legendary treasure.",
-                Horror: "You slip through a broken cellar window into darkness. Something scuttles in the shadows as you hear footsteps above.",
-                'Sci-Fi': "You hack into a maintenance shaft and discover classified alien technology that could change everything."
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?secret,passage,treasure",
-                Horror: "https://source.unsplash.com/1600x900/?cellar,darkness,scary",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?alien,technology,circuit"
-            },
-            choices: [
-                { label: "Take the treasure/technology", next: "victory" },
-                { label: "Leave quietly", next: "gameOver" }
-            ]
-        },
-        
-        cross: {
-            text: {
-                Adventure: "You successfully cross the bridge and claim the magical artifact! Its power courses through you as you become a legendary hero.",
-                Horror: "Halfway across, the bridge collapses, but you're saved by mysterious spirits who recognize your brave heart. They grant you peace.",
-                'Sci-Fi': "You successfully bypass the energy barrier and activate the ancient alien defense system, saving the galaxy from invasion."
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?artifact,magic,victory",
-                Horror: "https://source.unsplash.com/1600x900/?spirits,salvation,light",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?galaxy,defense,victory"
-            },
-            choices: [
-                { label: "Begin a new adventure", next: "start" }
-            ]
-        },
-        
-        alternative: {
-            text: {
-                Adventure: "You find a hidden cave with an ancient wizard who teaches you powerful magic and sends you on an epic quest.",
-                Horror: "You discover a forgotten chapel where you find holy relics that protect you from the darkness forever.",
-                'Sci-Fi': "You locate an escape pod that takes you to a peaceful planet where you help establish a new colony."
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?wizard,cave,magic",
-                Horror: "https://source.unsplash.com/1600x900/?chapel,holy,relics",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?escape,pod,colony"
-            },
-            choices: [
-                { label: "Start another adventure", next: "start" }
-            ]
-        },
-        
-        victory: {
-            text: {
-                Adventure: "Congratulations! You have completed your heroic quest and become a legend that will be remembered for generations!",
-                Horror: "Against all odds, you have survived the supernatural horrors and emerged stronger, ready to face any darkness!",
-                'Sci-Fi': "Mission accomplished! You've successfully saved the galaxy and unlocked the secrets of advanced alien civilization!"
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?victory,hero,celebration",
-                Horror: "https://source.unsplash.com/1600x900/?survivor,dawn,hope",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?space,victory,stars"
-            },
-            choices: [
-                { label: "Play again", next: "start" }
-            ]
-        },
-        
-        gameOver: {
-            text: {
-                Adventure: "Your adventure ends here, but every hero's journey teaches valuable lessons. Thank you for playing!",
-                Horror: "The darkness claims another soul... but death is not always the end. Will you dare to try again?",
-                'Sci-Fi': "Mission failed, but the universe is vast and full of second chances. Your next adventure awaits!"
-            },
-            image: {
-                Adventure: "https://source.unsplash.com/1600x900/?sunset,journey,end",
-                Horror: "https://source.unsplash.com/1600x900/?darkness,death,gothic",
-                'Sci-Fi': "https://source.unsplash.com/1600x900/?space,failure,nebula"
-            },
-            choices: [
-                { label: "Try again", next: "start" }
-            ]
-        }
-    }
+// Game state
+let currentGenre = '';
+let currentStory = null;
+let storyStep = 0;
+
+// Story data structure (compact, consistent indices)
+const stories = {
+  Adventure: {
+    title: 'The Lost Kingdom',
+    steps: [
+      {
+        text:
+          "You stand at the edge of a mysterious forest. Legends speak of a lost kingdom hidden within. A worn path leads into the trees, a village smokes to the right, and the sun dips low behind you.",
+        image:
+          'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Follow the forest path', next: 1 },
+          { text: 'Head to the village', next: 2 },
+          { text: 'Set up camp and wait for morning', next: 3 },
+        ],
+      },
+      {
+        text:
+          "The path winds into shadow. You find a creaking bridge and the ruins of a watchtower beyond. A faint humming crystal lies on the ground, pointing somewhere unseen.",
+        image:
+          'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Cross the bridge to the tower', next: 4 },
+          { text: "Follow the crystal's pull", next: 'end' },
+          { text: 'Return and find another route', next: 2 },
+        ],
+      },
+      {
+        text:
+          "The village elder shares tales of a guardian and secret trials. He reveals a map with three routes: courage, wisdom, and heart.",
+        image:
+          'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Take the path of courage', next: 4 },
+          { text: 'Take the path of wisdom', next: 5 },
+          { text: 'Take the path of heart', next: 6 },
+        ],
+      },
+      {
+        text:
+          "At dawn, glowing lights reveal hidden trails. The forest hums with soft music and runes flicker to life on bark.",
+        image:
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Follow the lights', next: 5 },
+          { text: "Seek the music's source", next: 6 },
+          { text: 'Trace the runes with your fingers', next: 'end' },
+        ],
+      },
+      {
+        text:
+          "You reach an ancient watchtower. Inside: a journal about a benevolent dragon guardian and a crystal that responds to your heartbeat.",
+        image:
+          'https://images.unsplash.com/photo-1520637836862-4d197d17c55a?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Study the journal for clues', next: 5 },
+          { text: 'Use the crystal to guide you onward', next: 'end' },
+          { text: 'Search for hidden compartments', next: 6 },
+        ],
+      },
+      {
+        text:
+          "A mountainside temple shows murals of the kingdom's fall. Three gems glow dimly: ruby, sapphire, emerald.",
+        image:
+          'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Touch the ruby (courage)', next: 'end' },
+          { text: 'Touch the sapphire (wisdom)', next: 'end' },
+          { text: 'Touch the emerald (heart)', next: 'end' },
+        ],
+      },
+      {
+        text:
+          "The runes rearrange into words: ‘Aethros Valdium Nethys’. Magic gathers like dawn breaking.",
+        image:
+          'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Speak the ancient words', next: 'end' },
+          { text: 'Press your palm to the runes', next: 'end' },
+          { text: 'Step back and observe', next: 2 },
+        ],
+      },
+      {
+        text:
+          "Congratulations, brave adventurer! You reach the heart of the lost kingdom. The guardian dragon greets you as a friend. The treasures were the choices you made—and the wisdom earned.",
+        image:
+          'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&auto=format&fit=crop&q=60',
+        choices: [{ text: 'Start a new adventure', next: 'restart' }],
+      },
+    ],
+  },
+  Horror: {
+    title: 'The Haunted Manor',
+    steps: [
+      {
+        text:
+          "Blackwood Manor looms in moonlight. The main door hangs ajar. A side path slips toward the servants’ entrance. The garden creaks with dead vines.",
+        image:
+          'https://images.unsplash.com/photo-1520637736862-4d197d17c55a?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Enter through the main door', next: 1 },
+          { text: "Try the servants' entrance", next: 2 },
+          { text: 'Investigate the garden', next: 3 },
+        ],
+      },
+      {
+        text:
+          "A grand staircase spirals upward. A portrait seems to watch you. From above, a child's laugh echoes where no child lives.",
+        image:
+          'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Follow the laughter upstairs', next: 'end' },
+          { text: 'Examine the portrait', next: 2 },
+          { text: 'Search the ground floor', next: 'end' },
+        ],
+      },
+      {
+        text:
+          "Narrow corridors. Old photographs whisper. One shows your face as if you've always been here.",
+        image:
+          'https://images.unsplash.com/photo-1616585497209-11d3db2d5b0e?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Listen to the whispers', next: 'end' },
+          { text: 'Enter a hidden passage behind a portrait', next: 3 },
+          { text: 'Find the main hall', next: 1 },
+        ],
+      },
+      {
+        text:
+          "An overgrown garden and a family mausoleum bear your name. A cellar door is scratched from inside.",
+        image:
+          'https://images.unsplash.com/photo-1573108037329-37aa135a142e?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Open the mausoleum', next: 'end' },
+          { text: 'Descend into the cellar', next: 'end' },
+          { text: 'Return to the front', next: 1 },
+        ],
+      },
+      {
+        text:
+          "You survive Blackwood Manor and bring peace to its restless spirits. The house collapses with the dawn, and you step free—changed, and unafraid.",
+        image:
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&auto=format&fit=crop&q=60',
+        choices: [{ text: 'Begin a new terrifying tale', next: 'restart' }],
+      },
+    ],
+  },
+  'Sci-Fi': {
+    title: 'The Quantum Expedition',
+    steps: [
+      {
+        text:
+          "Year 2387. Aboard the Nexus Explorer, ARIA detects three anomalies: a pulsing blue signature, a geometric red construct, and a swirling purple vortex.",
+        image:
+          'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Investigate the blue signature', next: 1 },
+          { text: 'Approach the red dodecahedron', next: 2 },
+          { text: 'Study the purple vortex', next: 3 },
+        ],
+      },
+      {
+        text:
+          "A derelict alien ship. Crystalline beings stir in hibernation. Their leader reaches out with a thought: share knowledge, or pass in peace.",
+        image:
+          'https://images.unsplash.com/photo-1548375321-6ba84b6aa5c2?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Accept their knowledge', next: 'end' },
+          { text: 'Help repair their ship', next: 'end' },
+          { text: 'Invite them to join you', next: 'end' },
+        ],
+      },
+      {
+        text:
+          "The red structure hums with math. A transmission encodes the rules of reality itself—promise and peril intertwined.",
+        image:
+          'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Decode and share widely', next: 'end' },
+          { text: 'Protect and guard the knowledge', next: 'end' },
+          { text: 'Observe from a distance', next: 3 },
+        ],
+      },
+      {
+        text:
+          "The purple vortex is a portal. Probes return vistas of a parallel universe where thought is energy.",
+        image:
+          'https://images.unsplash.com/photo-1462332420958-a05d1e002413?w=1200&auto=format&fit=crop&q=60',
+        choices: [
+          { text: 'Send a crew through', next: 'end' },
+          { text: 'Establish cautious contact', next: 'end' },
+          { text: 'Retreat and log observations', next: 'end' },
+        ],
+      },
+      {
+        text:
+          "Congratulations, Quantum Explorer! You've opened new frontiers and forged paths between worlds. The multiverse awaits your next decision.",
+        image:
+          'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=1200&auto=format&fit=crop&q=60',
+        choices: [{ text: 'Begin a new space odyssey', next: 'restart' }],
+      },
+    ],
+  },
 };
 
-// DOM Elements
+// DOM references
 const introScreen = document.getElementById('introScreen');
 const gameScreen = document.getElementById('gameScreen');
 const genreButtons = document.querySelectorAll('.genre-btn');
@@ -167,87 +219,137 @@ const storyText = document.getElementById('storyText');
 const choicesContainer = document.getElementById('choicesContainer');
 const restartButton = document.getElementById('restartButton');
 
-// Event Listeners
-genreButtons.forEach(button => {
-    button.addEventListener('click', () => selectGenre(button.dataset.genre));
+// Attach listeners
+genreButtons.forEach((button) => {
+  button.addEventListener('click', () => selectGenre(button.dataset.genre, button));
 });
 
 startButton.addEventListener('click', startGame);
 restartButton.addEventListener('click', restartGame);
 
-// Functions
-function selectGenre(genre) {
-    gameData.currentGenre = genre;
-    
-    // Update UI
-    genreButtons.forEach(btn => btn.classList.remove('selected'));
-    event.target.classList.add('selected');
-    
-    // Enable start button
-    startButton.disabled = false;
+function selectGenre(genre, clickedBtn) {
+  currentGenre = genre;
+  // Toggle selected styles
+  genreButtons.forEach((btn) => btn.classList.remove('selected'));
+  if (clickedBtn) clickedBtn.classList.add('selected');
+  // Enable start
+  startButton.disabled = false;
 }
 
 function startGame() {
-    if (!gameData.currentGenre) return;
-    
-    // Switch to game screen
-    introScreen.classList.remove('active');
-    gameScreen.classList.add('active');
-    
-    // Set current genre indicator
-    currentGenreSpan.textContent = gameData.currentGenre;
-    
-    // Load the starting story node
-    loadStoryNode('start');
+  if (!currentGenre || !stories[currentGenre]) return;
+  currentStory = stories[currentGenre];
+  storyStep = 0;
+  // Switch screens
+  introScreen.classList.remove('active');
+  gameScreen.classList.add('active');
+  // Set indicator
+  currentGenreSpan.textContent = currentGenre;
+  // First step
+  displayStoryStep();
 }
 
-function loadStoryNode(nodeId) {
-    gameData.currentNode = nodeId;
-    const node = gameData.storyNodes[nodeId];
-    
-    if (!node) {
-        console.error('Story node not found:', nodeId);
-        return;
-    }
-    
-    // Update story content
-    const storyContent = node.text[gameData.currentGenre] || node.text.Adventure;
-    const imageUrl = node.image[gameData.currentGenre] || node.image.Adventure;
-    
-    storyText.textContent = storyContent;
-    storyImage.src = imageUrl;
-    storyImage.alt = `${gameData.currentGenre} scene`;
-    
-    // Create choice buttons
-    choicesContainer.innerHTML = '';
-    node.choices.forEach(choice => {
-        const button = document.createElement('button');
-        button.className = 'choice-btn';
-        button.textContent = choice.label;
-        button.addEventListener('click', () => loadStoryNode(choice.next));
-        choicesContainer.appendChild(button);
+function displayStoryStep() {
+  const step = currentStory.steps[storyStep];
+  if (!step) return;
+
+  const storyContent = document.querySelector('.story-content');
+  if (storyContent) {
+    storyContent.classList.add('story-transition');
+    setTimeout(() => storyContent.classList.remove('story-transition'), 600);
+  }
+
+  // Update image
+  storyImage.src = step.image || '';
+  storyImage.alt = `${currentGenre} Scene ${storyStep + 1}`;
+
+  // Update text with typewriter effect
+  typeWriterEffect(storyText, step.text || '');
+
+  // Clear and add choices after a slight delay
+  choicesContainer.innerHTML = '';
+
+  const renderChoices = () => {
+    (step.choices || []).forEach((choice, index) => {
+      const choiceButton = document.createElement('button');
+      choiceButton.className = 'choice-btn';
+      choiceButton.textContent = choice.text;
+      choiceButton.addEventListener('click', () => makeChoice(choice.next));
+
+      // Staggered animation via inline styles
+      choiceButton.style.opacity = '0';
+      choiceButton.style.transform = 'translateX(-20px)';
+      choicesContainer.appendChild(choiceButton);
+
+      setTimeout(() => {
+        choiceButton.style.transition = 'all 0.3s ease';
+        choiceButton.style.opacity = '1';
+        choiceButton.style.transform = 'translateX(0)';
+      }, index * 100 + 400);
     });
-    
-    // Add scroll to top for better UX
-    gameScreen.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Give the typewriter a head start before showing buttons
+  setTimeout(renderChoices, 600);
+}
+
+function typeWriterEffect(element, text) {
+  if (!element) return;
+  element.textContent = '';
+  let index = 0;
+  const speed = 18; // ms per char
+
+  function type() {
+    if (index < text.length) {
+      element.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, speed);
+    }
+  }
+
+  type();
+}
+
+function makeChoice(nextStep) {
+  if (nextStep === 'restart') {
+    restartGame();
+    return;
+  }
+
+  if (nextStep === 'end') {
+    storyStep = currentStory.steps.length - 1; // go to ending node
+    displayStoryStep();
+    return;
+  }
+
+  if (typeof nextStep === 'number' && nextStep >= 0 && nextStep < currentStory.steps.length) {
+    storyStep = nextStep;
+    displayStoryStep();
+  } else {
+    // Fallback to ending if something goes wrong
+    storyStep = currentStory.steps.length - 1;
+    displayStoryStep();
+  }
 }
 
 function restartGame() {
-    // Reset game state
-    gameData.currentGenre = '';
-    gameData.currentNode = 'start';
-    
-    // Reset UI
-    genreButtons.forEach(btn => btn.classList.remove('selected'));
-    startButton.disabled = true;
-    
-    // Switch back to intro screen
-    gameScreen.classList.remove('active');
-    introScreen.classList.add('active');
+  // Reset state
+  currentGenre = '';
+  currentStory = null;
+  storyStep = 0;
+
+  // Reset UI
+  genreButtons.forEach((btn) => btn.classList.remove('selected'));
+  startButton.disabled = true;
+  currentGenreSpan.textContent = '';
+  storyText.textContent = '';
+  storyImage.src = '';
+  choicesContainer.innerHTML = '';
+
+  // Switch back
+  gameScreen.classList.remove('active');
+  introScreen.classList.add('active');
 }
 
-// Initialize the game
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Mythoria game loaded successfully!');
-    console.log('Created by SEKH MD RAKIBUL HOSSEN');
-});
+// Init log
+console.log('Mythoria: Interactive Story Game Loaded');
